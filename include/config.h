@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string.h>
+#include <string>
 #include "status.h"
 
 
@@ -19,6 +19,7 @@ public:
 
     std::string importanceMapPath;
     std::string dataPath;
+    std::string sourceImagePath;
 
     Config();
     ~Config(){};

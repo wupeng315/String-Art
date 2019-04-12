@@ -7,20 +7,27 @@
 using Eigen::MatrixXd;
 using cv::Mat;
 
-int main()
+int main(int argc, char *argv[])
 {
   Config config;
-  config.invertInput = true;
-  config.numPins = 128;
-  config.printInfo();
-  STATUS parse_status = config.parseFile("");
-  if(parse_status == STATUS::PARSE_DEFAULT){
-    std::cout<< "use default configuration" << std::endl;
+  std::string filePath = "";
+  if (argc > 1){
+      filePath = argv[1];
   }
-  MatrixXd m(2,2);
-  m(0,0) = 3;
-  m(1,0) = 2.5;
-  m(0,1) = -1;
-  m(1,1) = m(1,0) + m(0,1);
-  std::cout << m << std::endl;
+  STATUS parse_status = config.parseFile(filePath);
+  if(parse_status == STATUS::PARSE_DEFAULT){
+    std::cout << "use default configuration" << std::endl;
+  }else if(parse_status == STATUS::PARSE_FILE_OPEN_ERROR){
+    std::cout << "configuration file open error" << std::endl;
+    return -1;
+  }else if(parse_status == STATUS::PARSE_FORMAT_ERROR){
+    std::cout << "configuration file format error" << std::endl;
+    return -1;
+  }else{
+    std::cout << "configuration parse succeed" << std::endl;
+  }
+  config.printInfo();
+
+  
+  return 0;
 }

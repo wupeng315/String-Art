@@ -6,7 +6,7 @@ enum class STATUS
     /*Parse config file*/
     PARSE_DEFAULT,
     PARSE_SUCCESS,
-    PARSE_FILE_NOT_FIND,
+    PARSE_FILE_OPEN_ERROR,
     PARSE_FORMAT_ERROR
 };
 
