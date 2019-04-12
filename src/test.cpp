@@ -1,11 +1,9 @@
 #include <iostream>
-#include <Eigen/Dense>
-#include <opencv2/opencv.hpp>
+#include <stdio.h>
 #include "../include/config.h"
 #include "../include/status.h"
+#include <sys/stat.h>
 
-using Eigen::MatrixXd;
-using cv::Mat;
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +26,15 @@ int main(int argc, char *argv[])
   }
   config.printInfo();
 
-  
-  return 0;
+  struct stat sb;
+
+  if(stat(config.dataPath.c_str(), &sb) != 0 || !S_ISDIR(sb.st_mode)){
+    char inst[256];
+    strcpy(inst, "mkdir ");
+    strcat(inst, config.dataPath.c_str());
+    system(inst);
+  }else{
+    std::cout << "data directory exists" << std::endl;
+  }
+  return 0; 
 }

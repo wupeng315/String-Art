@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string>
+#include <string.h>
 #include "status.h"
 
 
@@ -26,6 +26,9 @@ public:
 
     void printInfo();
     STATUS parseFile(std::string filePath);
+
+private:
+    void adaptThreadThickness();
 };
 
 #endif

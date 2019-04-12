@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <math.h>
 #include "../include/config.h"
 
 Config::Config()
@@ -13,7 +14,7 @@ Config::Config()
     numPins = 256;
     importanceMapPath = "";
     sourceImagePath = "";
-    dataPath = "./data";
+    dataPath = "../data";
 }
 
 void Config::printInfo()
@@ -70,6 +71,14 @@ STATUS Config::parseFile(std::string filePath)
     else{
         return STATUS::PARSE_FILE_OPEN_ERROR;
     }
+    adaptThreadThickness();
     fs.close();
     return STATUS::PARSE_SUCCESS;
+}
+
+void Config::adaptThreadThickness()
+{
+    double resolution =  frameDiameter / threadThickness;
+    resolution = pow(2,ceil(log2(resolution)));
+    threadThickness = frameDiameter / (unsigned int)resolution;
 }
