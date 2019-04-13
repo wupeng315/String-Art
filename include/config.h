@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string.h>
+#include <string>
 #include "status.h"
 
 
@@ -16,6 +16,7 @@ public:
 
     unsigned int superSamplingWindowWidth;
     unsigned int numPins;
+    unsigned int resolution;
 
     std::string importanceMapPath;
     std::string dataPath;

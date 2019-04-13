@@ -15,23 +15,25 @@ Config::Config()
     importanceMapPath = "";
     sourceImagePath = "";
     dataPath = "../data";
+    adaptThreadThickness();
 }
 
 void Config::printInfo()
 {
-    std::cout << "///////////////////////////////////////////////////////////" << std::endl;
-    std::cout << "///////////////////////////////////////////////////////////" << std::endl;
-    std::cout << std::setw(30)  << "InvertInput: " << std::setw(20) << invertInput << std::endl;
-    std::cout << std::setw(30)  << "InvertOutput: "  << std::setw(20) << invertOutput << std::endl;
+    std::cout << "===========================================================" << std::endl;
+    std::cout << "===========================================================" << std::endl;
+    std::cout << std::setw(30)  << "InvertInput: " << std::setw(20) << (invertInput == 1 ? "True" : "False") << std::endl;
+    std::cout << std::setw(30)  << "InvertOutput: "  << std::setw(20) << (invertOutput == 1 ? "True" : "False") << std::endl;
     std::cout << std::setw(30)  << "ThreadThickness: " << std::setw(20) << threadThickness << std::endl;
     std::cout << std::setw(30)  << "FrameDiameter: " << std::setw(20) << frameDiameter << std::endl;
     std::cout << std::setw(30)  << "SuperSamplingWindowWidth: " << std::setw(20) << superSamplingWindowWidth << std::endl;
     std::cout << std::setw(30)  << "NumPins: " << std::setw(20) << numPins << std::endl;
-    std::cout << std::setw(30)  << "ImportanceMapPath: " << std::setw(20) << importanceMapPath << std::endl;
-    std::cout << std::setw(30)  << "DataPath: " << std::setw(20) << dataPath << std::endl;
-    std::cout << std::setw(30)  << "SourceImagePath: " << std::setw(20) << sourceImagePath << std::endl;
-    std::cout << "///////////////////////////////////////////////////////////" << std::endl;
-    std::cout << "///////////////////////////////////////////////////////////" << std::endl;
+    std::cout << std::setw(30)  << "Resolution: " << std::setw(20) << resolution << std::endl;
+    std::cout << std::setw(30)  << "ImportanceMapPath: " << std::setw(20) << (importanceMapPath == "" ? "NULL" : importanceMapPath)  << std::endl;
+    std::cout << std::setw(30)  << "DataPath: " << std::setw(20) << (dataPath == "" ? "NULL" : dataPath) << std::endl;
+    std::cout << std::setw(30)  << "SourceImagePath: " << std::setw(20) << (sourceImagePath == "" ? "NULL" : sourceImagePath) << std::endl;
+    std::cout << "===========================================================" << std::endl;
+    std::cout << "===========================================================" << std::endl;
 }
 
 STATUS Config::parseFile(std::string filePath)
@@ -78,7 +80,7 @@ STATUS Config::parseFile(std::string filePath)
 
 void Config::adaptThreadThickness()
 {
-    double resolution =  frameDiameter / threadThickness;
-    resolution = pow(2,ceil(log2(resolution)));
-    threadThickness = frameDiameter / (unsigned int)resolution;
+    double temp =  frameDiameter / threadThickness;
+    resolution = (unsigned int)pow(2,ceil(log2(temp)));
+    threadThickness = frameDiameter / resolution;
 }
