@@ -14,6 +14,7 @@ set(PROJECT_SOURCE_DIR src)
 add_executable(String-Art 
                ${PROJECT_SOURCE_DIR}/test.cpp 
                ${PROJECT_SOURCE_DIR}/config.cpp
-               ${PROJECT_SOURCE_DIR}/imageProcessor.cpp)
+               ${PROJECT_SOURCE_DIR}/imageProcessor.cpp
+               ${PROJECT_SOURCE_DIR}/matrixGenerator.cpp)
 
 target_link_libraries( String-Art ${OpenCV_LIBS} )
